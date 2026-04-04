@@ -1,0 +1,39 @@
+# Compiled output
+target/
+*.class
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# Log files
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Application specific
+application-local.yml
+application-dev.yml
+*.pid
+
+# Docker volumes (optional - keep if you want)
+# postgres_data/
+# redis_data/
+# rabbitmq_data/
+
+# Maven wrapper (keep if you want)
+!mvnw
+!mvnw.cmd
+
+# Temp files
+*.tmp
+*.swp
+*.swo
+*~
