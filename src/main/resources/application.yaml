@@ -9,6 +9,8 @@ spring:
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
+  config:
+    import: optional:classpath:secrets.properties
 
   jpa:
     hibernate:
@@ -46,16 +48,11 @@ spring:
     connection-timeout: 5000
 
   jackson:
-    serialization:
-      write-dates-as-timestamps: false
     deserialization:
       fail-on-unknown-properties: false
 
 server:
-  port: 8080
-  error:
-    include-message: always
-    include-binding-errors: always
+  port: 8088
 
 logging:
   level:
@@ -73,3 +70,14 @@ management:
   endpoint:
     health:
       show-details: always
+
+cache:
+  type: redis
+  default-ttl: PT1H
+  caches:
+    flights: PT5M
+
+flight:
+  providers:
+    duffel:
+      base-url: https://api.duffel.com
