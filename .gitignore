@@ -37,3 +37,4 @@ application-dev.yml
 *.swp
 *.swo
 *~
+/src/main/resources/secrets.properties
