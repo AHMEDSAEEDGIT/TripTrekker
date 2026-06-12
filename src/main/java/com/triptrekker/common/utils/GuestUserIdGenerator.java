@@ -32,6 +32,7 @@ public class GuestUserIdGenerator {
         cookie.setMaxAge(ONE_YEAR_SECONDS);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
+        cookie.setSecure(true);
         response.addCookie(cookie);
         return guestUserId;
     }
