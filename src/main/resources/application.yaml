@@ -12,6 +12,10 @@ spring:
   config:
     import: optional:classpath:secrets.properties
 
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+
   jpa:
     hibernate:
       ddl-auto: none

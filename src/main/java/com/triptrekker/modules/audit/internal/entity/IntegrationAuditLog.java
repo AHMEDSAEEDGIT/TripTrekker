@@ -6,8 +6,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Generated;
+import org.hibernate.generator.EventType;
 
 import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "integration_audit_log")
@@ -17,12 +20,12 @@ import java.time.Instant;
 public class IntegrationAuditLog {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "integration_audit_seq")
-    @SequenceGenerator(name = "integration_audit_seq", sequenceName = "integration_audit_log_id_seq")
-    private Long id;
+    @Generated(event = EventType.INSERT)
+    @Column(name = "id", insertable = false)
+    private UUID id;
 
-    @Column(name = "correlation_id", length = 36)
-    private String correlationId;
+    @Column(name = "correlation_id")
+    private UUID correlationId;
 
     @Column(name = "actor_id")
     private String actorId;

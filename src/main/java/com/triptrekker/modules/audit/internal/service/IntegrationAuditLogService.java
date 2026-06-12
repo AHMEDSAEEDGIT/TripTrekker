@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class IntegrationAuditLogService {
     public void save(IntegrationAuditEvent event) {
         try {
             IntegrationAuditLog record = new IntegrationAuditLog();
-            record.setCorrelationId(event.correlationId());
+            record.setCorrelationId(parseCorrelationId(event.correlationId()));
             record.setActorId(event.actorId());
             record.setActorType(event.actorType());
             record.setVendor(event.vendor());
@@ -39,6 +41,18 @@ public class IntegrationAuditLogService {
             repository.save(record);
         } catch (Exception e) {
             log.error("Failed to persist integration audit log: vendor={} endpoint={}", event.vendor(), event.apiEndpoint(), e);
+        }
+    }
+
+    private UUID parseCorrelationId(String correlationId) {
+        if (correlationId == null || correlationId.isBlank()) {
+            return null;
+        }
+        try {
+            return UUID.fromString(correlationId);
+        } catch (IllegalArgumentException e) {
+            log.warn("Skipping invalid integration audit correlation id: {}", correlationId);
+            return null;
         }
     }
 }

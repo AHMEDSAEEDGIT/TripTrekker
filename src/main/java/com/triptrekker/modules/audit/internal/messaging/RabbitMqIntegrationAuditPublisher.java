@@ -1,7 +1,7 @@
 package com.triptrekker.modules.audit.internal.messaging;
 
 import com.triptrekker.modules.audit.api.IntegrationAuditEvent;
-import com.triptrekker.modules.audit.internal.config.AuditMessagingConfig;
+import com.triptrekker.common.config.RabbitMqConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -16,8 +16,8 @@ class RabbitMqIntegrationAuditPublisher {
 
     void publish(IntegrationAuditEvent event) {
         rabbitTemplate.convertAndSend(
-                AuditMessagingConfig.EXCHANGE,
-                AuditMessagingConfig.ROUTING_KEY,
+                RabbitMqConfig.INTEGRATION_AUDIT_EXCHANGE,
+                RabbitMqConfig.INTEGRATION_AUDIT_ROUTING_KEY,
                 event
         );
         log.debug("Integration audit event published to RabbitMQ: vendor={} endpoint={}", event.vendor(), event.apiEndpoint());

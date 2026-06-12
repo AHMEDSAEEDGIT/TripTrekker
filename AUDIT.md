@@ -94,7 +94,7 @@ Records every audited call to an external vendor API (Duffel, Stripe, etc.) incl
 | `SpringEventAuditListener` | `internal/messaging` | `@EventListener` — receives fallback event, saves to DB |
 | `IntegrationAuditLogService` | `internal/service` | Saves `IntegrationAuditLog` in a `REQUIRES_NEW` transaction |
 | `IntegrationAuditLog` | `internal/entity` | JPA entity mapped to `integration_audit_log` |
-| `AuditMessagingConfig` | `internal/config` | Declares RabbitMQ exchange, queue, DLQ, and message converter |
+| `RabbitMqConfig` | `common/config` | Declares RabbitMQ exchange, queue, DLQ, and message converter |
 
 ### How it works — full flow
 
@@ -256,7 +256,7 @@ public BookingResult bookAndPay(BookingRequest request) {
 
 // Not annotated — never audited, no performance overhead
 public SearchResponse searchOffers(SearchRequest request) {
-    return restClient.post().uri("/air/offer_requests")...
+    return restClient.post().uri("/air/offer_requests") ...
 }
 ```
 
