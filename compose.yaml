@@ -16,6 +16,21 @@ services:
       timeout: 5s
       retries: 5
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: flight-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@triptrekker.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
   redis:
     image: redis:7-alpine
     container_name: flight-redis
@@ -51,6 +66,8 @@ volumes:
   postgres_data:
     driver: local
   redis_data:
+    driver: local
+  pgadmin_data:
     driver: local
   rabbitmq_data:
     driver: local

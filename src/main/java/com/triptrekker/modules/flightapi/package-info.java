@@ -1,4 +1,4 @@
 @org.springframework.modulith.ApplicationModule(
-        allowedDependencies = "common"
+        allowedDependencies = {"common", "audit::api"}
 )
 package com.triptrekker.modules.flightapi;

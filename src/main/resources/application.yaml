@@ -50,6 +50,27 @@ spring:
     username: guest
     password: guest
     connection-timeout: 5000
+    listener:
+      simple:
+        default-requeue-rejected: false
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 1000
+          multiplier: 2
+          max-interval: 10000
+
+  mail:
+    host: smtp-relay.brevo.com
+    port: 587
+    username: ${BREVO_SMTP_USERNAME}
+    password: ${BREVO_SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
   jackson:
     deserialization:
@@ -85,3 +106,15 @@ flight:
   providers:
     duffel:
       base-url: https://api.duffel.com
+
+triptrekker:
+  notification:
+    email:
+      from-email: ${NOTIFICATION_FROM_EMAIL:noreply@triptrekker.com}
+      from-name: ${NOTIFICATION_FROM_NAME:TripTrekker}
+    sms:
+      provider: ${SMS_PROVIDER:log}
+      httpsms:
+        api-key: ${HTTPSMS_API_KEY:}
+        from-number: ${HTTPSMS_FROM_NUMBER:}
+        base-url: https://api.httpsms.com

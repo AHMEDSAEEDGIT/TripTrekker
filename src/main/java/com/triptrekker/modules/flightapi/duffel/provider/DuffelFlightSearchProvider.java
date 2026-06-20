@@ -1,5 +1,7 @@
 package com.triptrekker.modules.flightapi.duffel.provider;
 
+import com.triptrekker.modules.audit.api.AuditedIntegration;
+import com.triptrekker.modules.audit.api.IntegrationVendor;
 import com.triptrekker.modules.flightapi.duffel.client.DuffelFlightClient;
 import com.triptrekker.modules.flightapi.duffel.mapper.DuffelFlightMapper;
 import com.triptrekker.modules.flightapi.duffel.model.DuffelOfferRequestResponse;
@@ -19,6 +21,7 @@ public class DuffelFlightSearchProvider implements FlightSearchProvider {
     private final DuffelFlightMapper duffelFlightMapper;
 
     @Override
+    @AuditedIntegration(vendors = IntegrationVendor.DUFFEL)
     public FlightSearchData searchFlights(FlightSearchCriteria criteria) {
         log.info("Searching flights via Duffel: {} → {}, departure: {}", criteria.getOrigin(), criteria.getDestination(), criteria.getDepartureDate());
         DuffelOfferRequestResponse response = duffelFlightClient.createOfferRequest(criteria);
